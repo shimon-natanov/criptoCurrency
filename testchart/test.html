@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-alpha/Chart.min.js"></script>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+</head>
+<body>
+    <div id="curency">
+        <p>gjgjgjgjgjjg  </p>
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#MoreInfo">More Info</button>
+        <div  id="MoreInfo" >
+            <p>helloooooooooooooooooooooooooooooooooooooooooooooooooo</p>   
+        </div>
+    </div>
+
+
+    <!-- <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitches">
+        <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+      </div> -->
+<div id="01abc">
+
+
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1jgjgj" checked>
+              <label class="custom-control-label" for="customSwitch1jgjgj">dgdgdgdgdg</label>
+            </div>
+ </div>
+
+ <div class="custom-control custom-switch">
+  <button type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+  <!-- <label class="custom-control-label" for="customSwitch1">dgdgdgdgdg</label> -->
+</div>
+      <!-- <div class="switch">
+        <label>
+          Off
+          <input type="checkbox" checked>
+          <span class="lever"></span> On
+        </label>
+      </div> -->
+      <input id="ch" type="checkbox">
+      <br>
+      <hr>
+
+      <!-- https://getbootstrap.com/docs/4.0/components/modal/ -->
+
+      <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+
+  <!-- $('#myModal').modal(options) -->
+  <!-- $('#myModal').modal(options) -->
+  
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+               -->
+      
+
+
+
+  <!-- <canvas id="myChart" width="400" height="400"></canvas>
+  <script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  </script> -->
+
+ <canvas id="myChart" width="400" height="400"></canvas>
+  <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myLineChart = new Chart(ctx, {
+            type: 'line',
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            data: [{
+            x: 10,
+            y: 20
+            }, 
+            {
+            x: 15,
+            y: 10
+            }],
+            options: {showLines: true}
+      });
+</script>
+
+      <script>
+          btn = document.getElementById("customSwitch1jgjgj")
+          check = document.getElementById("ch")
+        //   value = btn.getAttribute(checked)
+        //   console.log(value)
+        console.log(btn.value)
+        btn.onclick = (e)=>{
+
+            console.log(btn.checked)
+            console.log(e.target)
+            console.log(e.target.id)
+            console.log(e.target.nodeName)
+
+        }
+
+        check.onclick = (e) =>{
+
+            console.log(check.checked)
+            console.log(e.target)
+            console.log(e.target.id)
+            console.log(e.target.nodeName)
+
+        }
+
+
+        // $('#myModal').modal(options)
+        // document.getElementById('exampleModal').modal('show')
+        $('#exampleModal').modal('show')
+        // window.querySelector('#exampleModal').modal('show')
+
+
+      </script>
+</body>
+</html>
+
+class="parallax"

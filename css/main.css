@@ -1,0 +1,128 @@
+body, html {
+    height: 100%;
+    width:100%
+  }
+.parallax {
+    /* The image used */
+    background-image: url('../images/criptoImage.jfif');
+  
+    /* Full height */
+    height: 50%; 
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* Turn off parallax scrolling for tablets and phones. Increase the pixels if needed */
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+      background-attachment: scroll;
+      /* background-attachment:fixed; */
+    }
+}   
+
+nav { 
+    background-color: lightgray;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    list-style-type: none;
+}
+
+
+nav> a {
+    border: solid 1px white;
+    color: yellow;
+    background-color: lightsteelblue;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 4px
+}
+nav> a:hover {
+    color: gold;
+    background-color: black;
+
+}
+
+
+nav input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+nav button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: #0b7dda;
+}
+
+/* form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+} */
+
+
+
+
+
+#currencyDiv{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#currencyDiv > div {
+  border: 1px blue solid;
+  padding: 10px;
+  height: 30%;
+  width: 30%
+}
+ 
+.addInfo {
+  border: 1px gray solid;
+}
+
+.btn-toggle {
+  /* top: 50%;
+  transform: translateY(-50%); */
+  color : blue
+}
+/* .btn-toggle {
+  
+  .toggle-mixin;
+  .toggle-color;
+  
+  &.btn-lg {
+    .toggle-mixin(@size: 2.5rem; @font-size: 1rem; @margin: 5rem;);
+  }
+  
+  &.btn-sm {
+    .toggle-mixin(@font-size: .55rem; @margin: .5rem;);
+  }
+  
+  &.btn-xs {
+    .toggle-mixin(@size:1rem;@margin:0;)
+  }
+  
+  &.btn-secondary {
+    .toggle-color(@active-bg:@brand-secondary);
+  }
+} */
+
