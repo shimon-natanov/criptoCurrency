@@ -31,7 +31,7 @@ export default class UI {
         curencyJsonArray.forEach(curency => {
 
 
-            if (i < 1000) {                       // firs div id is the curency.id since the site give info by id name and not symbol
+            if (i < 100) {                       // firs div id is the curency.id since the site give info by id name and not symbol
                 UI.currencyDiv.innerHTML += `                            
                     <div id="${curency.id}">
                         <div class="custom-control custom-switch">
