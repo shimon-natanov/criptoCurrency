@@ -3,7 +3,7 @@ import UI from './ui.js'
 
 window.onload = function () {
     localStorage.clear();
-    window.choosedCurencies = {}
+    UI.choosedCurencies = {}
 
 }
 
@@ -47,32 +47,14 @@ UI.currencyDiv.onclick = (e)=>{  // more info button
 
         case 'INPUT':  // toggel checkbox input
             if (e.target.checked){ // toggle is on
-                if (Object.keys(choosedCurencies).length < 5){
-                    choosedCurencies[e.target.id]= e.target.id  // e.target.id id accutaly the cripto symbol like BTC
-                    // let coinCardDiv = e.target.parentNode.parentNode
+                if (Object.keys(UI.choosedCurencies).length < 5){
+                    UI.choosedCurencies[e.target.id]= e.target.id  // e.target.id id accutaly the cripto symbol like BTC
                 }else UI.show5CoinList(e.target.id)
-            }else delete choosedCurencies[e.target.id]
+            }else delete UI.choosedCurencies[e.target.id]
             break
-
-
-
-        // case 'LABEL' :
-            
-
-        //     if (Object.keys(choosedCurencies).length < 5){
-
-        //         if (!e.target.previousElementSibling.checked){ // toggle  was not on
-        //             choosedCurencies[e.target.previousElementSibling.id]= e.target.id  // e.target.id id accutaly the cripto symbol like BTC
-        //             // let coinCardDiv = e.target.parentNode.parentNode
-        //         }else delete choosedCurencies[e.target.id] // toggle was on
-        //     }else UI.show5CoinList(e.target.previousElementSibling.id)
-        //     break
-
         default : return
     }
-    // if (e.target.nodeName !== 'BUTTON'){
-    //     return
-    // }
+   
    
     
 }

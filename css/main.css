@@ -25,6 +25,7 @@ body, html {
 }   
 
 nav { 
+  width: 90%;
     background-color: lightgray;
     text-align: center;
     padding: 5px;
@@ -47,25 +48,33 @@ nav> a:hover {
 
 }
 
+nav div {
+
+  flex-grow: 3;
+}
 
 nav input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
   float: left;
-  width: 80%;
+  width: 200px;
   background: #f1f1f1;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  
 }
 
 nav button {
   float: left;
-  width: 20%;
-  padding: 10px;
+  padding-right: 20px;
   background: #2196F3;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
-  border-left: none;
+  border-top-right-radius: 30px ;
+  border-bottom-right-radius: 30px ;
+  
   cursor: pointer;
 }
 

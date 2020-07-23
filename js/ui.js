@@ -8,14 +8,16 @@ export default class UI {
     static liveReportHtmlUrl = '../misc/liveReport.html'
     static compareRateTimer
     static curencyJsonArray
-
+    static choosedCurencies
 
 
     static search (){
         let searchText = document.getElementsByName('search')[0].value
-        if (searchText){
-            let filteredCoinsArray = UI.curencyJsonArray.filter(x => x.symbol === searchText )
-            UI.showCriptoCoinInMianDiv(filteredCoinsArray)
+        if ((searchText)){
+            if (UI.curencyJsonArray){
+                let filteredCoinsArray = UI.curencyJsonArray.filter(x => x.symbol === searchText )
+                UI.showCriptoCoinInMianDiv(filteredCoinsArray)
+            }
         }else UI.home()
     }
 
@@ -27,8 +29,10 @@ export default class UI {
         let i = 0
         UI.currencyDiv.innerHTML = '' 
         curencyJsonArray.forEach(curency => {
-            if (i < 100) {                       // firs div id is the curency.id since the site give info by id name and not symbol
-                UI.currencyDiv.innerHTML += `
+           
+
+            if (i < 1000) {                       // firs div id is the curency.id since the site give info by id name and not symbol
+                UI.currencyDiv.innerHTML += `                            
                     <div id="${curency.id}">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id=${curency.symbol}>
@@ -40,7 +44,6 @@ export default class UI {
 
                         </div>
                     </div>`
-                //<button type="button" class="btn btn-lg btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off"></button>
                 i++
             }
         });
@@ -57,7 +60,7 @@ export default class UI {
             UI.showCriptoCoinInMianDiv(UI.curencyJsonArray)
            
 
-            for (const choosedcoin in choosedCurencies) {  // when comming back to home screen showing the choosed cripto coins
+            for (const choosedcoin in UI.choosedCurencies) {  // when comming back to home screen showing the choosed cripto coins
                 document.getElementById(choosedcoin).checked = true
               }
             
@@ -86,7 +89,7 @@ export default class UI {
                 coinCardDiv.querySelector('.addInfo').innerHTML = `<progress id="progress${coinCardDiv.id}" value="0"></progress>`
                 var progressBar = document.getElementById(`progress${coinCardDiv.id}`)
                 // if (e.lengthComputable) {
-                progressBar.max = 20000 //e.total //e.total;
+                progressBar.max = 20000 //e.total 
                 progressBar.value = e.loaded;
 
                 console.log(`Downloaded ${e.loaded} of ${e.total} bytes`);
@@ -105,7 +108,6 @@ export default class UI {
 
 
     static showMoreInfo(moreInfoJsonArray, coinCardDiv) {
-        // let backUpcard=coinCard.innerHTML
         coinCardDiv.querySelector('.addInfo').innerHTML =
             `
           <img src="${moreInfoJsonArray.image.small}"></img>
@@ -114,24 +116,16 @@ export default class UI {
            &nbsp;${moreInfoJsonArray.market_data.current_price.ils}  &#8362;  
      `
 
-        // localStorage.setItem(`${coinCard.timeStamp}`, new Date())
-        // <button id=${coinCard.id+'-back'}>back</button>
+       
 
     }
 
-    // static deleteFromLocalStorage (value){
-    //     localStorage.removeItem(value)
-
-    // }
-
-    // static showProgressBar(coinCardDiv){
-
-    // }
+   
 
     static show5CoinList(chosenCriptoSymbolFromMainPage) {
         let modalBody=document.getElementsByClassName("modal-body")[0]
         modalBody.innerHTML=''
-        for (const criptoCoin in choosedCurencies) {
+        for (const criptoCoin in UI.choosedCurencies) {
             modalBody.innerHTML += `
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="C${criptoCoin}" checked>
@@ -141,7 +135,7 @@ export default class UI {
             `
           }
         
-        // choosedCurencies
+        
 
 
         // https://getbootstrap.com/docs/4.0/components/modal/
@@ -158,9 +152,9 @@ export default class UI {
 
                     if (!e.target.checked){
                         
-                        delete choosedCurencies[chosenCoinSymbolonModal]  ///////////
+                        delete UI.choosedCurencies[chosenCoinSymbolonModal]  ///////////
                         document.getElementById(chosenCoinSymbolonModal).checked = false // turn off on main page
-                        choosedCurencies[chosenCriptoSymbolFromMainPage]=chosenCriptoSymbolFromMainPage
+                        UI.choosedCurencies[chosenCriptoSymbolFromMainPage]=chosenCriptoSymbolFromMainPage
                         $('#exampleModal').modal('hide')
                     }
                     break
@@ -179,28 +173,22 @@ export default class UI {
 
             if (!e.target.checked){
                 
-                delete choosedCurencies[chosenCoinSymbolonModal]  ///////////
+                delete UI.choosedCurencies[chosenCoinSymbolonModal]  ///////////
                 document.getElementById(chosenCoinSymbolonModal).checked = false // turn off on main page
-                choosedCurencies[chosenCriptoSymbolFromMainPage]=chosenCriptoSymbolFromMainPage
+                UI.choosedCurencies[chosenCriptoSymbolFromMainPage]=chosenCriptoSymbolFromMainPage
                 $('#exampleModal').modal('hide')
             }
-            // else choosedCurencies[chosenCoinSymbol]=chosenCoinSymbol
+           
             
         }
 
-        //    let saveButton = document.getElementById('save')
-        //    saveButton.onclick = function(e){
-
-        //         if (Object.keys(choosedCurencies).length < 5){           
-        //             choosedCurencies[CriptoSymbol]=CriptoSymbol
-        //         }
-        //    }
+       
          
     }
 
     static get getCurrencyCompareUrl (){
         let currencyCompareUrl = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=`
-        for (const criptoCoin in  choosedCurencies){
+        for (const criptoCoin in  UI.choosedCurencies){
             currencyCompareUrl += `${criptoCoin},`
 
         }
@@ -212,13 +200,15 @@ export default class UI {
     static LiveReports() {
         Ajax.getfileContent(UI.liveReportHtmlUrl)
         window.allData ={}
-        if (Object.keys(choosedCurencies).length > 0){
-            for (const criptoCoin in  choosedCurencies){           
-            allData[criptoCoin]={}
-            allData[criptoCoin].name = criptoCoin
-            allData[criptoCoin].data = []
+        UI.seriesArry = []
+        if (Object.keys(UI.choosedCurencies).length > 0){
+            for (const criptoCoin in  UI.choosedCurencies){           
+            
+            
+            UI.seriesArry.push ({name: criptoCoin , data: []})
             }
-            // Ajax.getScript(UI.liveReportJsUrl)
+
+           
             function getCriptoCompareRates(){ // responseText = "{"{"ZOC":{"USD":0.00164},"ZCN":{"USD":0.1282},"ZRX":{"USD":0.3961}}"}"
                 let compareRatesObj = JSON.parse(this.responseText) // compareRatesObj = {ZOC:{USD:0.00164},ZCN{USD:0.1282},ZRX:{USD:0.3961}}
                 if ( compareRatesObj.HasWarning !== true){
@@ -231,131 +221,96 @@ export default class UI {
             Ajax.url =  UI.getCurrencyCompareUrl  //'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH,BTC,PPC,LTC&tsyms=USD' //  
 
 
-            // const progressLiveReportsFunc = function (e) {
-            //     document.querySelector('#currencyDiv').innerHTML = `<progress id="progressLiveReport" value="0"></progress>`
-            //     var progressBar = document.getElementById(`progressLiveReport`)
-            //     // if (e.lengthComputable) {
-            //     progressBar.max = 20000 //e.total //e.total;
-            //     progressBar.value = e.loaded;
-
-            //     console.log(`Downloaded ${e.loaded} of ${e.total} bytes`);
-
-            // }
-
             Ajax.DownloadProgressFunc = null
 
 
             Ajax.callBack = getCriptoCompareRates
             UI.compareRateTimer = setInterval(Ajax.get,2000)
+
+
         }else alert ('No Cripto Coin was chosen')
+    }
+
+    static seriesArry = []
+
+    static downloadChartInfo(){
+
+
     }
 
     static showcharts (compareRatesObj){         
         for (const criptoCoin in compareRatesObj){          
-            allData[criptoCoin.toLowerCase()].data.push(compareRatesObj[criptoCoin].USD)
+            // allData[criptoCoin.toLowerCase()].data.push(compareRatesObj[criptoCoin].USD)
+            UI.seriesArry.find(({name}) => name===criptoCoin.toLowerCase()).data.push(compareRatesObj[criptoCoin].USD)
+           
         }
-        var seriesArry = Object.keys(allData).map (key => allData[key])
-       
-       
-        // for  (const obj in allData){
-        //     var seriesArry = []
-        //     seriesArry.push(obj) // +chartData.push(compareRatesObj[criptoCoin]['USD'])
-        // }
+        for (let i=0 ;i< Object.keys(UI.choosedCurencies).length ; i++){
+            if (UI.seriesArry[i].data.length > 100){
 
-        Highcharts.chart('container', {
-
-            title: {
-                text: 'Solar Employment Growth by Sector, 2010-2016'
-            },
-        
-            subtitle: {
-                text: 'Source: thesolarfoundation.com'
-            },
-        
-            yAxis: {
-                title: {
-                    text: 'USD'
-                }
-            },
-        
-            // xAxis: {
-            //     type: 'datetime',
-            //     dateTimeLabelFormats: {
-            //         day: '%H:%M:%S'
-            //     }
-            // },
-            // xAxis: {
-            //     accessibility: {
-            //         // rangeDescription: 'Range: 2010 to 2017'
-            //         rangeDescription: 'datetime'
-            //     }
-            // },
-            xAxis: {
-                accessibility: {
-                    rangeDescription: 'Range: 0 to 3600'
-                }
-            },
-        
-        
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-        
-            // plotOptions: {
-            //     series: {
-            //         label: {
-            //             connectorAllowed: false
-            //         },
-            //         pointStart: new Date(),
-            //         // pointStart: Date() //.UTC(2010, 0, 1),
-            //         pointInterval: 3600 * 1000 // one hour
-            //     }
-            // },
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                    pointStart: 0
-                }
-            },
-        
-            series: seriesArry,
-            // [{
-            //     name: 'Installation',
-            //     data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 0]
-            // }, {
-            //     name: 'Manufacturing',
-            //     data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-            // }, {
-            //     name: 'Sales & Distribution',
-            //     data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-            // }, {
-            //     name: 'Project Development',
-            //     data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-            // }, {
-            //     name: 'Other',
-            //     data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-            // }],
-        
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
+                UI.seriesArry[i].data.splice(0,1)
             }
-        
-        });
+
+        }
+        var aa =new Date()
+        var tt= aa.getTime()+ 3600000*3
+
+  
+        Highcharts.chart('container', {
+            chart: {
+              type: 'spline',
+              scrollablePlotArea: {
+                minWidth: 600,
+                scrollPositionX: 1
+              }
+            },
+            title: {
+              text: 'Cripto Currency Conversion',
+              align: 'left'
+            },
+            subtitle: {
+              text: 'Show conversion of up to 5 cripto currency to USD ($)',
+              align: 'left'
+            },
+            xAxis: {
+              type: 'datetime',
+              labels: {
+                overflow: 'justify'
+              }
+            },
+            yAxis: {
+              title: {
+                text: 'USD($)'
+              },
+              minorGridLineWidth: 0,
+              gridLineWidth: 0,
+              alternateGridColor: null,
+            
+            },
+            tooltip: {
+              valueSuffix: '$'
+            },
+            plotOptions: {
+              spline: {
+                lineWidth: 4,
+                states: {
+                  hover: {
+                    lineWidth: 5
+                  }
+                },
+                marker: {
+                  enabled: false
+                },
+                pointInterval: 2000, // every 2 seconds
+                pointStart: tt //Date() 
+              }
+            },
+            series: UI.seriesArry,
+            navigation: {
+              menuItemStyle: {
+                fontSize: '10px'
+              }
+            }
+          });
     }
 
     static about() {
@@ -381,21 +336,4 @@ export default class UI {
         }
     }
 
-
-
-    // static loadContent(url, outlet) {
-    //     const xhr = new XMLHttpRequest();
-    //     xhr.open('GET' , url)
-    //     xhr.onload = function() {
-    //         outlet.innerHTML = xhr.responseText;
-    //     }
-    //     xhr.send()
-    
-    // }
-    
-    // static loadScript(url) {
-    //     var scriptTag = document.createElement('script');
-    //     scriptTag.src = url;
-    //     document.body.insertAdjacentElement('beforeend',scriptTag)   
-    // }
 }
