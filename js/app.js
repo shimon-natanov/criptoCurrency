@@ -4,6 +4,7 @@ import UI from './ui.js'
 window.onload = function () {
     localStorage.clear();
     UI.choosedCurencies = {}
+    UI.home()
 
 }
 
