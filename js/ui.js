@@ -12,13 +12,17 @@ export default class UI {
 
 
     static search() {
+        UI.home()
         let searchText = document.getElementsByName('search')[0].value
         if ((searchText)) {
+            if (UI.compareRateTimer) {
+                clearInterval(UI.compareRateTimer)
+            }
             if (UI.curencyJsonArray) {
                 let filteredCoinsArray = UI.curencyJsonArray.filter(x => x.symbol === searchText)
                 UI.showCriptoCoinInMianDiv(filteredCoinsArray)
             }
-        } else UI.home()
+        } 
     }
 
     static get currencyDiv() {
@@ -33,12 +37,12 @@ export default class UI {
 
             if (i < 100) {                       // firs div id is the curency.id since the site give info by id name and not symbol
                 UI.currencyDiv.innerHTML += `                            
-                    <div id="${curency.id}">
+                    <div class="card bg-light mb-3" style="max-width: 20rem; color:grey;" id="${curency.id}">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id=${curency.symbol}>
-                            <label class="custom-control-label" for=${curency.symbol}></label>
+                            <input type="checkbox" class="custom-control-input" id=${curency.symbol} >
+                            <label class="custom-control-label" for=${curency.symbol}>Add to line report</label>
                         </div>
-                            <p>id: ${curency.id} &nbsp;   symbol :&nbsp; ${curency.symbol}  &nbsp;  </p>
+                            <p class="card-header">id: ${curency.id} &nbsp;   symbol :&nbsp; ${curency.symbol}  &nbsp;  </p>
                             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#A${curency.id}MoreInfo">More Info</button>
                         <div  id="A${curency.id}MoreInfo" class="addInfo">
 
@@ -69,10 +73,29 @@ export default class UI {
 
 
             }
+            const mainProgressFunc = function (e) {
+                UI.currencyDiv.innerHTML = `<p> wait untill all coins will download <P> <progress id="mainProgress" value="0"></progress>`
+                var progressBar = document.getElementById("mainProgress")
+                // if (e.lengthComputable) {
+                progressBar.max = 100 //e.total 
+                progressBar.value = this.readyState * 25;
+
+                // console.log(`Downloaded ${e.loaded} of ${e.total} bytes`);
+
+            }
+            Ajax.DownloadProgressFunc = mainProgressFunc
             Ajax.url = UI.getAllCoinsUrl
             Ajax.callBack = getAllCoins
             Ajax.get()
-        }else UI.showCriptoCoinInMianDiv(UI.curencyJsonArray)
+        } else {
+            UI.showCriptoCoinInMianDiv(UI.curencyJsonArray)
+            for (const choosedcoin in UI.choosedCurencies) {  // when comming back to home screen showing the choosed cripto coins
+                if (document.getElementById(choosedcoin)){
+
+                    document.getElementById(choosedcoin).checked = true
+                }
+            }
+        }
     }
     //check if it is in the cach if yes then if less than 2 min compare to the time stamp take from local storage else reload from API
     // if not in cach then reload form api
@@ -94,10 +117,10 @@ export default class UI {
                 coinCardDiv.querySelector('.addInfo').innerHTML = `<progress id="progress${coinCardDiv.id}" value="0"></progress>`
                 var progressBar = document.getElementById(`progress${coinCardDiv.id}`)
                 // if (e.lengthComputable) {
-                progressBar.max = 20000 //e.total 
-                progressBar.value = e.loaded;
+                progressBar.max = 100 //e.total 
+                progressBar.value = this.readyState * 25;
 
-                console.log(`Downloaded ${e.loaded} of ${e.total} bytes`);
+                // console.log(`Downloaded ${e.loaded} of ${e.total} bytes`);
 
             }
 
@@ -158,7 +181,10 @@ export default class UI {
                     if (!e.target.checked) {
 
                         delete UI.choosedCurencies[chosenCoinSymbolonModal]  ///////////
-                        document.getElementById(chosenCoinSymbolonModal).checked = false // turn off on main page
+                        if (document.getElementById(chosenCoinSymbolonModal)){
+                             document.getElementById(chosenCoinSymbolonModal).checked = false // turn off on main page
+                        }
+
                         UI.choosedCurencies[chosenCriptoSymbolFromMainPage] = chosenCriptoSymbolFromMainPage
                         $('#exampleModal').modal('hide')
                     }
@@ -257,7 +283,8 @@ export default class UI {
 
         }
         var aa = new Date()
-        var tt = aa.getTime() + 3600000 * 3
+        var offsetINMinutes = new Date().getTimezoneOffset();
+        var tt = aa.getTime() - offsetINMinutes*60000 //+ 3600000 * 3
 
 
         Highcharts.chart('container', {

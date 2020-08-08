@@ -93,15 +93,43 @@ nav button:hover {
 
 
 #currencyDiv{
+  margin-top: 3%;
+  transform: translateX(-20%); 
+  margin-left: auto;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: auto;
+  width: 70%;
+  height: 80%;
+  justify-content:space-evenly ;
+
+
+
+
+
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly ;
+  margin-top: 3%;
+  overflow-y: auto;
+  margin-left: auto;
+  transform: translateX(10%); */
 }
 
 #currencyDiv > div {
-  border: 1px blue solid;
+  border : 3px blue solid;
+
+  margin-bottom: 20px;
+  width: 32.5%;
+  /* height: 30%; */
+    position: relative;
+  /* border: 1px blue solid; */
   padding: 10px;
-  height: 30%;
-  width: 30%
+  /* height: 30%;
+  width: 30%;
+  margin-left: auto;
+  position: relative; */
+  
 }
  
 .addInfo {

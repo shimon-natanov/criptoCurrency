@@ -23,19 +23,6 @@ export default class Ajax {
         xhr.onload = Ajax.callBack     //()=> {
         xhr.onerror = Ajax.errorAlert
         xhr.onprogress = Ajax.DownloadProgressFunc
-            
-            // function(e) {
-            //     // event.loaded returns how many bytes are downloaded
-            //     // event.total returns the total number of bytes
-            //     // event.total is only available if server sends `Content-Length` header
-                
-            //         if (e.lengthComputable) {
-            //             progressBar.max = e.total;
-            //             progressBar.value = e.loaded;
-            //         }
-            //     console.log(`Downloaded ${event.loaded} of ${event.total} bytes`);
-            // }
-
         xhr.send()
 
     }
